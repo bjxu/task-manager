@@ -1,7 +1,7 @@
 import java.time.Instant
 
 class NormalTaskManager(private val capacity: Int) : TaskManager {
-    override val processes:HashSet<Process> = hashSetOf()
+    override val processes: HashSet<Process> = hashSetOf()
 
     override fun add(processBuilder: Process.Builder) {
         if (processBuilder.name.isNullOrEmpty() || processBuilder.pid == null || processBuilder.priority == null) {

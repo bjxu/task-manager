@@ -41,7 +41,7 @@ data class Process private constructor(
         fun pid(pid: Int) = apply { this.pid = pid }
         fun priority(priority: PriorityType) = apply { this.priority = priority }
         fun timestamp(timestamp: Instant) = apply { this.timestamp = timestamp }
-        fun build() : Process {
+        fun build(): Process {
             val name = this.name ?: ""
             val pid = this.pid ?: 0
             val priority = this.priority ?: PriorityType.LOW

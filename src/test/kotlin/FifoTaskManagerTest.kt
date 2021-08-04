@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.Test
 import java.util.Comparator
 import kotlin.test.assertEquals
@@ -6,6 +5,7 @@ import kotlin.test.assertEquals
 class FifoTaskManagerTest {
     private val taskManager = FifoTaskManager(3)
     private val commonBehaviorTests = CommonBehaviorTests()
+
     @Test
     fun testAddOverCapacity() {
         val procBuilder1 = Process.Builder().name("proc1").pid(1).priority(PriorityType.MEDIUM)
