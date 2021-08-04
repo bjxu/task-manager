@@ -106,6 +106,6 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder2)
         taskManager.add(procBuilder3)
         taskManager.killAll()
-        assertEquals(listOf(procBuilder3.build()), taskManager.list())
+        assertEquals(listOf(), taskManager.list())
     }
 }
