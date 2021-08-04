@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test
-import java.util.Comparator
 import kotlin.test.assertEquals
 
 class FifoTaskManagerTest {
@@ -7,7 +6,7 @@ class FifoTaskManagerTest {
     private val commonBehaviorTests = CommonBehaviorTests()
 
     @Test
-    fun testAddOverCapacity() {
+    fun testAddWhenFull() {
         val procBuilder1 = Process.Builder().name("proc1").pid(1).priority(PriorityType.MEDIUM)
         val procBuilder2 = Process.Builder().name("proc2").pid(2).priority(PriorityType.LOW)
         val procBuilder3 = Process.Builder().name("proc3").pid(3).priority(PriorityType.HIGH)
@@ -18,7 +17,7 @@ class FifoTaskManagerTest {
         taskManager.add(procBuilder4)
         assertEquals(
             listOf(procBuilder2.build(), procBuilder3.build(), procBuilder4.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list()
         )
     }
 

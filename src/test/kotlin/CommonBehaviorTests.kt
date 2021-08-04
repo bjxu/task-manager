@@ -11,7 +11,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder3)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list()
         )
     }
 
@@ -22,10 +22,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder1)
         taskManager.add(procBuilder2)
         taskManager.add(procBuilder3)
-        assertEquals(
-            listOf(procBuilder2.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
-        )
+        assertEquals(listOf(procBuilder2.build()), taskManager.list())
     }
 
     fun testAddDuplicatePid(taskManager: TaskManager) {
@@ -39,7 +36,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder4)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list()
         )
     }
 
@@ -52,7 +49,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder3)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
         assertEquals(
             listOf(procBuilder2.build(), procBuilder1.build(), procBuilder3.build()),
@@ -72,11 +69,9 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder2)
         taskManager.add(procBuilder3)
         taskManager.kill(3)
-        assertEquals(
-            listOf(procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
-        )
+        assertEquals(listOf(procBuilder2.build(), procBuilder3.build()), taskManager.list())
     }
+
 
     fun testKillNotExist(taskManager: TaskManager) {
         val procBuilder1 = Process.Builder().name("proc1").pid(3).priority(PriorityType.MEDIUM)
@@ -88,7 +83,7 @@ class CommonBehaviorTests {
         taskManager.kill(4)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list()
         )
     }
 
@@ -100,10 +95,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder2)
         taskManager.add(procBuilder3)
         taskManager.killGroup(PriorityType.MEDIUM)
-        assertEquals(
-            listOf(procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
-        )
+        assertEquals(listOf(procBuilder3.build()), taskManager.list())
     }
 
     fun testKillAll(taskManager: TaskManager) {
@@ -114,10 +106,6 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder2)
         taskManager.add(procBuilder3)
         taskManager.killAll()
-        assertEquals(
-            listOf(),
-            taskManager.list(Comparator.comparing(Process::timestamp))
-        )
-
+        assertEquals(listOf(procBuilder3.build()), taskManager.list())
     }
 }
