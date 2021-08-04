@@ -11,12 +11,12 @@ class PriorityTaskManager(private val capacity: Int) : TaskManager {
      */
     override fun add(processBuilder: Process.Builder) {
         if (processBuilder.name.isNullOrEmpty() || processBuilder.pid == null || processBuilder.priority == null) {
-            println("cannot add (name, pid and priority of process must be provided)")
+            println("process not added (name, pid and priority of process must be provided)")
             return
         }
         val process = processBuilder.timestamp(Instant.now()).build()
         if (processes.contains(process)) {
-            println("cannot add (process with pid=${process.pid} already exists)")
+            println("process not added (process with pid=${process.pid} already exists)")
             return
         }
         this.processes.add(process)
