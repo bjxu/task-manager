@@ -1,5 +1,5 @@
-enum class PriorityType(val color: String) {
-    LOW("low"),
-    MEDIUM("medium"),
-    HIGH("high")
+enum class PriorityType {
+    LOW,
+    MEDIUM,
+    HIGH
 }

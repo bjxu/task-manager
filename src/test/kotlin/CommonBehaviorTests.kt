@@ -11,7 +11,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder3)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
     }
 
@@ -24,7 +24,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder3)
         assertEquals(
             listOf(procBuilder2.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
     }
 
@@ -39,7 +39,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder4)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
     }
 
@@ -52,7 +52,7 @@ class CommonBehaviorTests {
         taskManager.add(procBuilder3)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
         assertEquals(
             listOf(procBuilder2.build(), procBuilder1.build(), procBuilder3.build()),
@@ -74,7 +74,7 @@ class CommonBehaviorTests {
         taskManager.kill(3)
         assertEquals(
             listOf(procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
     }
 
@@ -88,7 +88,7 @@ class CommonBehaviorTests {
         taskManager.kill(4)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
     }
 
@@ -102,7 +102,7 @@ class CommonBehaviorTests {
         taskManager.killGroup(PriorityType.MEDIUM)
         assertEquals(
             listOf(procBuilder3.build()),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
     }
 
@@ -116,7 +116,7 @@ class CommonBehaviorTests {
         taskManager.killAll()
         assertEquals(
             listOf(),
-            taskManager.list(Comparator.comparing(Process::timestamp))
+            taskManager.list(Comparator.comparing(Process::creationTS))
         )
 
     }

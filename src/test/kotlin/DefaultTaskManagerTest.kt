@@ -2,12 +2,12 @@ import org.junit.jupiter.api.Test
 import java.util.Comparator.comparing
 import kotlin.test.assertEquals
 
-class NormalTaskManagerTest {
-    private val taskManager = NormalTaskManager(3)
+class DefaultTaskManagerTest {
+    private val taskManager = DefaultTaskManager(3)
     private val commonBehaviorTests = CommonBehaviorTests()
 
     @Test
-    fun testAddOverCapacity() {
+    fun testAddWhenFull() {
         val procBuilder1 = Process.Builder().name("proc1").pid(1).priority(PriorityType.MEDIUM)
         val procBuilder2 = Process.Builder().name("proc2").pid(2).priority(PriorityType.LOW)
         val procBuilder3 = Process.Builder().name("proc3").pid(3).priority(PriorityType.HIGH)
@@ -18,7 +18,7 @@ class NormalTaskManagerTest {
         taskManager.add(procBuilder4)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
-            taskManager.list(comparing(Process::timestamp))
+            taskManager.list(comparing(Process::creationTS))
         )
     }
 
