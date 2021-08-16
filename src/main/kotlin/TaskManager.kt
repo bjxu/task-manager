@@ -6,7 +6,7 @@ interface TaskManager {
     /**
      * Adds a process to the tasks manager in form of a [processBuilder]
      */
-    fun add(processBuilder: Process.Builder)
+    fun add(processBuilder: Process.Builder) : Process?
 
     /**
      * Lists all processes in the task manager sorted with the [comparator] for Process

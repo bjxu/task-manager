@@ -7,23 +7,24 @@ class PriorityTaskManager(private val capacity: Int) : TaskManager {
 
     /**
      * Adds a process to the tasks manager in form of a [processBuilder]
-     * The  oldest process will be killed and removed if capacity is reached
+     * The oldest process will be killed and removed if capacity is reached
      */
-    override fun add(processBuilder: Process.Builder) {
+    override fun add(processBuilder: Process.Builder): Process? {
         if (processBuilder.name.isNullOrEmpty() || processBuilder.pid == null || processBuilder.priority == null) {
             println("process not added (name, pid and priority of process must be provided)")
-            return
+            return null
         }
         val process = processBuilder.timestamp(Instant.now()).build()
         if (processes.contains(process)) {
             println("process not added (process with pid=${process.pid} already exists)")
-            return
+            return null
         }
         this.processes.add(process)
         if (processes.size > this.capacity) {
             val processToRemove = processes.remove()
             processToRemove?.kill()
         }
+        return process
     }
 }
 

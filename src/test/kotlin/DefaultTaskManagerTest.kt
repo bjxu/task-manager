@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class DefaultTaskManagerTest {
     private val taskManager = DefaultTaskManager(3)
@@ -14,7 +15,8 @@ class DefaultTaskManagerTest {
         taskManager.add(procBuilder2)
         taskManager.add(procBuilder3)
         val procBuilder4 = Process.Builder().name("proc4").pid(4).priority(PriorityType.HIGH)
-        taskManager.add(procBuilder4)
+        val rejected = taskManager.add(procBuilder4)
+        assertNull(rejected)
         assertEquals(
             listOf(procBuilder1.build(), procBuilder2.build(), procBuilder3.build()),
             taskManager.list()
